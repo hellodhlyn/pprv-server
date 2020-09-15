@@ -1,4 +1,3 @@
-import { Console } from 'console';
+import server from './server';
 
-const console = new Console(process.stdout, process.stderr);
-console.log('Hello, world!');
+server.listen(process.env.PORT || '8080');
