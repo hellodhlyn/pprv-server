@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: postgres:10
+    container_name: pprv-db
+    environment:
+      POSTGRES_DB: pprv
+      POSTGRES_PASSWORD: rootpass
+    ports:
+    - 5432:5432
