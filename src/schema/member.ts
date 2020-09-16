@@ -23,7 +23,7 @@ export const memberType: GraphQLObjectType = new GraphQLObjectType({
     username: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: GraphQLString },
     email: { type: new GraphQLNonNull(GraphQLString) },
-    type: { type: new GraphQLNonNull(memberTypeEnumType) },
+    memberType: { type: new GraphQLNonNull(memberTypeEnumType) },
     reviews: {
       type: new GraphQLNonNull(reviewConnectionType),
       args: connectionArgs,

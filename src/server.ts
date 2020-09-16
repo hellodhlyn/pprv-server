@@ -2,13 +2,13 @@ import { GraphQLSchema } from 'graphql';
 import Koa from 'koa';
 import mount from 'koa-mount';
 import graphqlHTTP from 'koa-graphql';
-import { queryType } from './schema/query';
+import { buildQueryType } from './schema/query';
 
-const schema = new GraphQLSchema({
-  query: queryType,
-});
+export function createServer(): Koa {
+  const schema = new GraphQLSchema({ query: buildQueryType() });
 
-const app = new Koa();
-app.use(mount('/graphql', graphqlHTTP({ schema, graphiql: true })));
+  const app = new Koa();
+  app.use(mount('/graphql', graphqlHTTP({ schema, graphiql: true })));
 
-export default app;
+  return app;
+}

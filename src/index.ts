@@ -1,3 +1,11 @@
-import server from './server';
+import { createConnection } from 'typeorm';
 
-server.listen(process.env.PORT || '8080');
+import ormconfig from './ormconfig';
+import { createServer } from './server';
+
+(async () => {
+  await createConnection(ormconfig);
+
+  const server = createServer();
+  server.listen(process.env.PORT || '8080');
+})();
