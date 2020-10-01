@@ -26,8 +26,10 @@ export default class ReviewService {
     return this.reviewRepo.findOne({ author, authorReviewId });
   }
 
-  async findAllPublishedConnection(args: ConnectionArguments): Promise<Connection<Review>> {
-    const where: FindConditions<Review> = { publishState: PublishState.PUBLISHED };
+  async queryPublishedConnection(query: FindConditions<Review>, args: ConnectionArguments): Promise<Connection<Review>> {
+    const where = query || {};
+    where.publishState = PublishState.PUBLISHED;
+
     if (args.after) {
       where.id = LessThan(cursorToOffset(args.after));
     } else if (args.before) {

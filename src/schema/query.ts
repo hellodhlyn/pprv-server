@@ -1,12 +1,15 @@
 import { GraphQLObjectType } from 'graphql';
-import { GraphQLNonNull, GraphQLID } from 'graphql/type';
+import { GraphQLNonNull, GraphQLID, GraphQLString } from 'graphql/type';
 import { connectionArgs } from 'graphql-relay';
-import { reviewConnectionType, ReviewResolver } from './review';
+import { getRepository } from 'typeorm';
+import { memberType } from './member';
+import { reviewConnectionType } from './review';
 import { nodeInterface, NodeResolver } from './node';
+import { Member } from '../models/member';
+import { getReviewService } from '../services';
 
 export function buildQueryType(): GraphQLObjectType {
   const nodeResolver = new NodeResolver();
-  const reviewResolver = new ReviewResolver();
 
   return new GraphQLObjectType({
     name: 'Query',
@@ -21,7 +24,14 @@ export function buildQueryType(): GraphQLObjectType {
       reviews: {
         type: new GraphQLNonNull(reviewConnectionType),
         args: connectionArgs,
-        resolve: (_, args) => reviewResolver.reviews(_, args),
+        resolve: (_, args) => getReviewService().queryPublishedConnection(null, args),
+      },
+      member: {
+        type: memberType,
+        args: {
+          username: { type: new GraphQLNonNull(GraphQLString) },
+        },
+        resolve: (_, args: { username: string }) => getRepository(Member).findOne({ username: args.username }),
       },
     }),
   });

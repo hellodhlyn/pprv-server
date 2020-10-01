@@ -19,6 +19,9 @@ export class Member {
   description: string;
 
   @Column()
+  profileUrl: string;
+
+  @Column()
   email: string;
 
   @Column({ name: 'type' })
