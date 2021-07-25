@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  pprv-db:
+    image: edgedb/edgedb:1-beta2
+    container_name: pprv-db
+    environment:
+      EDGEDB_PASSWORD: rootpass
+      EDGEDB_GENERATE_SELF_SIGNED_CERT: '1'
+      EDGEDB_DATABASE: pprv
+    ports:
+    - 5656:5656
