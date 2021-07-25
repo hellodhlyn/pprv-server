@@ -1,2 +1,0 @@
-class ReviewCategory < ApplicationRecord
-end
