@@ -11,18 +11,18 @@ module default {
     }
 
     type ProductCategory extending AuditableEntity {
-        required property slug -> str;
-        required property name -> str;
+        required property slug -> str { constraint exclusive; };
+        required property name -> str { constraint exclusive; };
     }
 
     type ProductBrand extending AuditableEntity {
-        required property slug -> str;
-        required property name -> str;
+        required property slug -> str { constraint exclusive; };
+        required property name -> str { constraint exclusive; };
     }
 
     type Product extending AuditableEntity {
-        required property slug -> str;
-        required property name -> str;
+        required property slug -> str { constraint exclusive; };
+        required property name -> str { constraint exclusive; };
         property description -> str;
         property release_at -> datetime;
         link category -> ProductCategory;
